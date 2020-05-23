@@ -1,0 +1,100 @@
+[user]
+    name  = Arun Chandrasekaran
+    email = arun.chandrasekaran@necam.com
+    #email = aruncxy@gmail.com
+
+[alias]
+    br  = branch
+    cr  = crecord
+    co  = checkout
+    df  = diff
+    g   = grep -I
+    loq = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white) %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    l = log --graph --decorate -20 --all --date-order --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %s %C(bold blue)%aN%Creset%C(auto)%d'
+    lg = log --graph --decorate --all --date-order --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %s %C(bold blue)%aN%Creset%C(auto)%d'
+    lg2 = log --graph --abbrev-commit --decorate --date=format:'%Y-%m-%d %H:%M:%S' --format=format:'%C(bold blue)%h%C(reset) %C(black bold)%ad%C(reset) %C(bold yellow)%d%C(reset) %C(blue)%aN%C(reset)%n        %C(white)%s%C(reset)' --all
+    desc = log --decorate --all --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %C(bold blue)%aN%Creset%C(auto)%d %n%s%n%b'
+    pb  = push
+    rb  = rbranch
+    rc  = rank-contributors
+    sm  = show-merges
+    st  = status -s
+    vim = difftool
+    serv = daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
+    mt = mergetool
+    m3 = mergetool -t merge3
+    fatcommits = rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+
+
+[branch]
+    autosetuprebase = always
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local   = yellow
+    remote  = green
+
+[color "diff"]
+    meta = yellow 
+    frag = magenta 
+    old  = red 
+    new  = green 
+
+[color "status"]
+    added     = green
+    changed   = yellow
+    untracked = cyan
+
+[diff]
+    tool = vimdiff
+
+[diff "exif"]
+    textconv = exiftool
+
+[difftool]
+    prompt = false
+
+[merge]
+    tool = vimdiff
+    log = true
+
+#[push]
+  #default = simple
+
+[rerere]
+    enabled = 1
+
+[url "git@github.com:"]
+    insteadOf     = "gh:"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+    insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+    insteadOf     = "gst:"
+    pushInsteadOf = "gist:"
+    pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+    insteadOf = "gist:"
+
+[url "git@heroku.com:"]
+    insteadOf = "heroku:"
+
+[url "https://github"]
+    insteadOf = git://github
+[push]
+    default = simple
+[mailmap]
+    file = /home/arun/.mailmap
+[core]
+    editor = vim
+[http]
+    sslVerify = false
+[mergetool "merge3"]
+    cmd = vim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"

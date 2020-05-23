@@ -1,0 +1,115 @@
+[ui]
+#username = Arun Chandrasekaran <aruncxy@gmail.com>
+username = Arun Chandrasekaran <arun.chandrasekaran@necam.com>
+editor = vim
+merge = vimdiff
+interface = curses
+
+[auth]
+rhodecode.prefix = 172.24.36.160
+rhodecode.username = arun
+rhodecode.schemes = http https
+
+[merge-patterns]
+** = filemerge
+
+[merge-tools]
+filemerge.executable = vim
+filemerge.args = -d $other $local $base
+filemerge.checkchanged = True
+filemerge.gui = False
+filemerge.binary = True
+
+[diff]
+#ignorews = true
+#ignorewsamount = true
+#ignoreblanklines = true
+
+[alias]
+mvbr = rebase --keepbranches
+send = push -r .
+recv = pull -b .
+o = out -b .
+i = incom -b .
+latest = log --limit 5
+ch = churn --template "{author|email} {date|shortdate}" --sort --diffstat
+lg1 = log --template "{label('custom.node', node|short)}\t{label('custom.phase',phase)}\t{label('custom.tag',tags)}\t{desc|firstline} {label('custom.age', date|age)} {label('custom.user', author|user)} {label('custom.book',bookmarks)}\n"
+lg = log --template "{label('custom.rev', rev)} {label('custom.node',node|short)}\t{label('custom.phase',phase)}\t{label('custom.date',date|shortdate)}\t{desc|firstline} {label('custom.user', author|user)} {label('custom.branch',branch)} {label('custom.tag',tags)} {label('custom.book',bookmarks)}\n" -G
+l = lg -l30
+desc = log --template "{label('custom.rev', rev)}\t{label('custom.phase',phase)}\t{label('custom.date',date|shortdate)}\t{desc}\n\n"
+#evolve=rebase -r 'orphan()-obsolete()' -d 'max((successors(max(roots(ALLSRC) & ::SRC)^)-obsolete())::)'
+
+[extensions]
+hgext.extdiff =
+hgext.hgk =
+color =
+graphlog =
+hgext.churn =
+purge =
+rebase =
+pager =
+convert =
+histedit =
+shelve =
+transplant =
+strip =
+progress =
+blackbox =
+#hggit =
+evolve =
+#bookflow =
+
+[pager]
+pager = LESS='FRX' less
+attend = annotate, cat, diff, export, glog, log, qdiff, help, st, lg, desc, ch, churn, lg1
+quiet = True
+
+[extdiff]
+cmd.vimdiff = 
+opts.vimdiff = -X
+cmd.meld =
+cmd.kdiff3 = 
+
+[color]
+custom.rev = yellow
+custom.branch = bold yellow
+custom.node = red
+custom.phase = cyan
+custom.user = bold blue
+custom.age = bold green
+custom.tag = bold yellow
+custom.book = bold red
+
+[tortoisehg]
+fontdiff = Monospace,9,-1,5,50,0,0,0,0,0
+vdiff = meld
+
+[experimental]
+graphshorten = true
+
+[hooks]
+#precommit.comment = echo -n "\nHope you pulled before your commit.\n\n" && sleep 2
+#precommit.test = hg incoming | grep -q "no changes found" || echo "=== New changes found ===" && echo "Pull again, checkout those changes and then attempt to checkin." && exit 1
+
+[hostsecurity]
+10.4.130.20:fingerprints = sha256:3e:ca:41:d5:9f:18:b9:b5:04:68:89:78:c2:ec:80:ff:ef:e7:84:70:f9:28:de:36:c3:2d:4e:df:5b:83:08:b2
+10.4.130.20:minimumprotocol = tls1.2
+
+[extensions]
+patchbomb=
+
+[patchbomb]
+confirm=True
+intro=never
+
+[email]
+to = mercurial-devel@mercurial-scm.org
+from = Arun Chandrasekaran <aruncxy@gmail.com>
+method = smtp
+
+[smtp]
+host = smtp.gmail.com
+port = 587
+tls = starttls
+username = aruncxy@gmail.com
+

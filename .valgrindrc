@@ -1,0 +1,7 @@
+--show-reachable=yes
+--leak-check=full
+--error-limit=no
+--log-file=%p.val
+--undef-value-errors=no
+--max-stackframe=36741049999
+--trace-children=yes
