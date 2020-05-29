@@ -165,18 +165,46 @@ ANT_HOME=$SETUP/apache-ant-1.9.3
 export M2_HOME=$SETUP/apache-maven-3.1.1
 RMQ_HOME=$SETUP/rabbitmq-java-client-2.7.1
 
-source ~/.git-prompt.sh
+# From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
+# Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
+export PS1="$BBla\D{%d-%m-%Y} \t$RCol $BGre\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
+export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
-# For git
-export PS1="${PS1}"'\[\e[1;32m\]$(__git_ps1 " (%s)")\[\e[m\]\n\[\e[1;35m\]\$\[\e[m\] '
-#export PS1="${PS1}"'\[\e[1;32m\]\[\e[m\]\n\[\e[1;31m\]\$\[\e[m\] '
-export PS2='\[\e[1;32m\]\t\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]>\[\e[m\] '
+# 100% pure Bash (no forking) function to determine the name of the current git branch
+__fastgit_ps1()
+{
+    local headfile head branch
+    local dir="$PWD"
 
-export GIT_PS1_SHOWCOLORHINTS=true # Option for git-prompt.sh to show branch name in color
+    while [ -n "$dir" ]; do
+        if [ -e "$dir/.git/HEAD" ]; then
+            headfile="$dir/.git/HEAD"
+            break
+        fi
+        dir="${dir%/*}"
+    done
 
-# Terminal Prompt:
-# Include git branch, use PROMPT_COMMAND (not PS1) to get color output (see git-prompt.sh for more)
-export PROMPT_COMMAND='__git_ps1 "\w" "\n\\\$ "' # Git branch (relies on git-prompt.sh)
+    if [ -e "$headfile" ]; then
+        read -r head < "$headfile" || return
+        case "$head" in
+            ref:*) branch="${head##*/}" ;;
+            "") branch="" ;;
+            *) branch="${head:0:7}" ;;  #Detached head. You can change the format for this too.
+        esac
+    fi
+
+    if [ -z "$branch" ]; then
+        return 0
+    fi
+
+    if [ -z "$1" ]; then
+        # Default format
+        printf "%s" "$branch"
+    else
+        # Use passed format string
+        printf "$1" "$branch"
+    fi
+}
 
 export SQLPATH=~/bin/sql
 export BOOST_ROOT=$SETUP/boost-1.62.0/install
@@ -186,8 +214,6 @@ export TERM=screen-256color
 export PROTO_INC=$SETUP/protobuf-2.6.1/install/include
 export PROTO_LIB=$SETUP/protobuf-2.6.1/install/lib
 export PROTO_BIN=$SETUP/protobuf-2.6.1/install/bin
-
-source /usr/share/bash-completion/completions/mercurial
 
 export QTDIR=~/Qt5.7.0/5.7/gcc_64
 export UFC_PROTO=~/code/ufc/UFCProto
