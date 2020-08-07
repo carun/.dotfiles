@@ -418,7 +418,7 @@ json()
 
 del_nexus()
 {
-    if [ $# -ne 1 ]; then
+    if [ $# -lt 1 ]; then
         echo "Usage: del_nexus <url1 ... urlN>"
         return
     fi
