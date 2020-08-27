@@ -220,7 +220,7 @@ export UFC_PROTO=~/code/ufc/UFCProto
 export UFC_HOME=~/code/ufc/ufc
 export FFMPEG_ROOT=~/setup/ffmpeg/install
 export OPENH264_ROOT=~/setup/openh264/install
-export PATH=$SETUP/ldc2-1.17.0-linux-x86_64/bin:$SETUP/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04/bin:$PROTO_BIN:$UFC_HOME/bin:$UFC_HOME/utils:$HOME/.bin:$JAVA_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:/sbin:/usr/sbin/:$QTDIR/bin:$ORACLE_HOME/bin:$PATH
+export PATH=$SETUP/ldc2-1.17.0-linux-x86_64/bin:$SETUP/clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PROTO_BIN:$UFC_HOME/bin:$UFC_HOME/utils:$HOME/.bin:$JAVA_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:/sbin:/usr/sbin/:$QTDIR/bin:$ORACLE_HOME/bin:$PATH
 export PATH=/home/arun/.nimble/bin:$PATH
 
 export ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
@@ -236,6 +236,21 @@ export Poco_DIR=/opt/dev-setup/poco-1.9.4
 export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
 export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
 stty -ixon
+
+gitsync()
+{
+    if [ $# -lt 2 ]; then
+        echo "Usage: gitsync <from> <to>"
+        return 0
+    fi
+
+    local from=$1
+    local to=$2
+    echo "Fetching from $from"
+    git fetch $from
+    echo "Pushing to $to"
+    git push $to --tags refs/remotes/*:refs/heads/*
+}
 
 get-bt()
 {
