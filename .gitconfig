@@ -1,7 +1,7 @@
 [user]
     name  = Arun Chandrasekaran
-    email = arun.chandrasekaran@necam.com
-    #email = aruncxy@gmail.com
+    #email = arun.chandrasekaran@necam.com
+    email = aruncxy@gmail.com
 
 [alias]
     br  = branch
@@ -96,6 +96,7 @@
     file = /home/arun/.mailmap
 [core]
     editor = vim
+    autocrlf = input
 [http]
     sslVerify = false
 [mergetool "merge3"]
