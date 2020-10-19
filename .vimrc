@@ -91,6 +91,9 @@ set encoding=utf-8
 set fileencoding=utf-8
 "set relativenumber
 "set nu
+if &diff
+    set noreadonly
+endif
 filetype plugin on
 filetype plugin indent on
 au BufNewFile,BufRead *.di set filetype=d
@@ -103,6 +106,7 @@ au BufRead,BufNewFile *.proto set filetype=proto
 autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufRead,BufNewFile *.log set syntax=log
 autocmd BufRead,BufNewFile *.md setlocal textwidth=120
+autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal textwidth=80
 
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -169,7 +173,7 @@ set completeopt=menuone,menu,longest
 
 function! FormatCppOnSave()
     let l:formatdiff = 1
-    py3f /opt/dev-setup/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04/share/clang/clang-format.py
+    py3f /opt/dev-setup/clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04/share/clang/clang-format.py
 endfunction
 function! FormatDOnSave()
     let l:formatdiff = 1

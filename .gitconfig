@@ -19,9 +19,7 @@
     desc = log --decorate --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %C(bold blue)%aN%Creset%C(auto)%d %n%s%n%b'
     pb  = push
     rb  = rbranch
-    rc  = rank-contributors
-    sm  = show-merges
-    st  = status -s
+    st  = status -s --no-untracked-files
     vim = difftool
     serv = daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
     mt = mergetool
@@ -102,3 +100,5 @@
     sslVerify = false
 [mergetool "merge3"]
     cmd = vim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[status]
+	relativePaths = true

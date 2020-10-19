@@ -15,6 +15,7 @@ ln -sf $PWD/.i3-config ~/.i3/config
 
 mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 echo "Created links. Now you can change the configuration files as required or use the defaults."
 echo "Notable files to be changed: .gitconfig .hgrc .vimrc .alias .bashrc"

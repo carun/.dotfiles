@@ -235,6 +235,9 @@ export Poco_DIR=/opt/dev-setup/poco-1.9.4
 
 export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
 export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
+export KUBECONFIG=~/kube-config/config-aks-test-aimes.yml
+export CMAKE_GENERATOR=Ninja
+
 stty -ixon
 
 gitsync()

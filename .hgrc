@@ -56,7 +56,6 @@ strip =
 progress =
 blackbox =
 #hggit =
-evolve =
 #bookflow =
 
 [pager]
