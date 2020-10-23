@@ -470,3 +470,12 @@ fatcommits()
     git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
 }
 
+mem_monitor()
+{
+    if [ "$1" == "" -o "$1" == "-h" ]; then
+        echo "Usage: ${FUNCNAME[0]} <pid>"
+        echo "Monitors the virual and physical memory usage of a process"
+        return
+    fi
+    while :; do grep -E "VmSize|RSS" /proc/$1/status | awk '{print $2}' | tr '\n' ',' && date "+%Y-%m-%d %H:%M:%S"; sleep 1; done
+}
