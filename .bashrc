@@ -187,7 +187,7 @@ __fastgit_ps1()
     if [ -e "$headfile" ]; then
         read -r head < "$headfile" || return
         case "$head" in
-            ref:*) branch="${head##*/}" ;;
+            ref:*) branch="${head##*refs/heads/}" ;;
             "") branch="" ;;
             *) branch="${head:0:7}" ;;  #Detached head. You can change the format for this too.
         esac
