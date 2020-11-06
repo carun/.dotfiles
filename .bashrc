@@ -17,7 +17,7 @@ Whi='\[\e[0;37m\]';  BWhi='\[\e[1;37m\]';  UWhi='\[\e[4;37m\]';  IWhi='\[\e[0;97
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+      *);;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -151,23 +151,23 @@ if [ -f ~/.alias ]; then
     . ~/.alias
 fi
 
-# Setup dir
 export SETUP=/opt/dev-setup
-
-# MEGHA
-megha=~/code/megha
-export MEGHA_PROTO=$megha/proto
-export KAVERI_HOME=$megha/kaveri
-
-# For Ant, Maven, RMQ
 export CATALINA_HOME=$SETUP/apache-tomcat-8.0.14
-ANT_HOME=$SETUP/apache-ant-1.9.3
 export M2_HOME=$SETUP/apache-maven-3.1.1
-RMQ_HOME=$SETUP/rabbitmq-java-client-2.7.1
+export TERM=screen-256color
+export CORE_LIB_PATH=/opt/Corelibs
+export JSON_ROOT=$SETUP/json-3.9.1
+export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
+export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
+export KUBECONFIG=~/kube-config/config-aks-test-aimes.yml
+export CMAKE_GENERATOR=Ninja
+
+# Disable TCP flow control
+stty -ixon
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BGre\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 # 100% pure Bash (no forking) function to determine the name of the current git branch
@@ -205,40 +205,6 @@ __fastgit_ps1()
         printf "$1" "$branch"
     fi
 }
-
-export SQLPATH=~/bin/sql
-export BOOST_ROOT=$SETUP/boost-1.62.0/install
-export CPPNETLIB_ROOT=$SETUP/cpp-netlib-0.11.2
-
-export TERM=screen-256color
-export PROTO_INC=$SETUP/protobuf-2.6.1/install/include
-export PROTO_LIB=$SETUP/protobuf-2.6.1/install/lib
-export PROTO_BIN=$SETUP/protobuf-2.6.1/install/bin
-
-export QTDIR=~/Qt5.7.0/5.7/gcc_64
-export UFC_PROTO=~/code/ufc/UFCProto
-export UFC_HOME=~/code/ufc/ufc
-export FFMPEG_ROOT=~/setup/ffmpeg/install
-export OPENH264_ROOT=~/setup/openh264/install
-export PATH=$SETUP/ldc2-1.17.0-linux-x86_64/bin:$SETUP/clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PROTO_BIN:$UFC_HOME/bin:$UFC_HOME/utils:$HOME/.bin:$JAVA_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:/sbin:/usr/sbin/:$QTDIR/bin:$ORACLE_HOME/bin:$PATH
-export PATH=/home/arun/.nimble/bin:$PATH
-
-export ORIG_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
-
-# paths
-export ES_HOME=~/code/cbp/edge
-export CORE_LIB_PATH=/opt/Corelibs
-export JSON_ROOT=$SETUP/json
-export SPDLOG_ROOT=$SETUP/spdlog-1.2.1
-export POCO_ROOT=/opt/dev-setup/poco-1.9.4
-export Poco_DIR=/opt/dev-setup/poco-1.9.4
-
-export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
-export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
-export KUBECONFIG=~/kube-config/config-aks-test-aimes.yml
-export CMAKE_GENERATOR=Ninja
-
-stty -ixon
 
 gitsync()
 {

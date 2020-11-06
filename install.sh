@@ -13,6 +13,7 @@ ln -sf $PWD/.valgrindrc ~/.valgrindrc
 mkdir -p ~/.i3
 ln -sf $PWD/.i3-config ~/.i3/config
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
