@@ -312,7 +312,7 @@ hgrevd()
     done
 }
 
-gitrevd()
+gitd()
 {
     if [ "$1" == "" -o "$2" == "" ]; then
         echo "Usage: gitrevd rev1 rev2"

@@ -173,7 +173,7 @@ set completeopt=menuone,menu,longest
 
 function! FormatCppOnSave()
     let l:formatdiff = 1
-    py3f /opt/dev-setup/clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04/share/clang/clang-format.py
+    py3f /usr/share/vim/addons/syntax/clang-format.py
 endfunction
 function! FormatDOnSave()
     let l:formatdiff = 1
