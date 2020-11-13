@@ -1,0 +1,3 @@
+lcov_branch_coverage = 1
+genhtml_legend = 0
+geninfo_external = 0

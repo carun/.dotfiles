@@ -9,6 +9,7 @@ ln -sf $PWD/.screenrc ~/.screenrc
 ln -sf $PWD/.tmux.conf ~/.tmux.conf
 ln -sf $PWD/.gitconfig ~/.gitconfig
 ln -sf $PWD/.valgrindrc ~/.valgrindrc
+ln -sf $PWD/.lcovrc ~/.lcovrc
 
 mkdir -p ~/.i3
 ln -sf $PWD/.i3-config ~/.i3/config
