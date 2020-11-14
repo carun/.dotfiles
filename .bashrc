@@ -159,7 +159,6 @@ export CORE_LIB_PATH=/opt/Corelibs
 export JSON_ROOT=$SETUP/json-3.9.1
 export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
 export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
-export KUBECONFIG=~/kube-config/config-aks-test-aimes.yml
 export CMAKE_GENERATOR=Ninja
 
 # Disable TCP flow control
@@ -169,6 +168,21 @@ stty -ixon
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
 export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
+
+kctx()
+{
+    local f=$SETUP/kube-config/$1.yml
+    if [ "$1" = "" ]; then
+        echo "Usage: kctx <env>"
+        return
+    elif [ ! -f $f ]; then
+        echo "Unknown k8s env '$1'"
+        return
+    fi
+
+    export KUBECONFIG=$SETUP/kube-config/$1.yml
+    echo "Switched to '$1'"
+}
 
 # 100% pure Bash (no forking) function to determine the name of the current git branch
 __fastgit_ps1()
