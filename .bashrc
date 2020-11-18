@@ -160,6 +160,11 @@ export JSON_ROOT=$SETUP/json-3.9.1
 export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
 export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
 export CMAKE_GENERATOR=Ninja
+export OpenCV_DIR=/opt/dev-setup/opencv-4.5.0
+export CURL_ROOT=$SETUP/curl-7.73.0
+export CURL_INCLUDE_DIR=$CURL_ROOT/include
+export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
+export KUBECONFIG=$SETUP/kube-config/dev1.yml
 
 # Disable TCP flow control
 stty -ixon
@@ -169,11 +174,11 @@ stty -ixon
 export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
-kctx()
+ktx()
 {
     local f=$SETUP/kube-config/$1.yml
     if [ "$1" = "" ]; then
-        echo "Usage: kctx <env>"
+        echo "Usage: ktx <env>"
         return
     elif [ ! -f $f ]; then
         echo "Unknown k8s env '$1'"
