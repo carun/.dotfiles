@@ -107,6 +107,7 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufRead,BufNewFile *.log set syntax=log
 autocmd BufRead,BufNewFile *.md setlocal textwidth=120
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal textwidth=80
+autocmd BufRead,BufNewFile *.ad setlocal textwidth=100
 
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
