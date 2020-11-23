@@ -38,4 +38,3 @@ alias pls='sudo'
 alias mtop="top -u $USER"
 alias tailf="tail -f"
 alias k='kubectl'
-alias kp='kubectl -n paro'

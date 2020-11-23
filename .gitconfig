@@ -104,3 +104,5 @@
     cmd = vim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 [status]
 	relativePaths = true
+[init]
+	defaultBranch = default
