@@ -151,6 +151,7 @@ if [ -f ~/.alias ]; then
     . ~/.alias
 fi
 
+export PATH=/opt/dev-setup/ldc2-1.17.0-linux-x86_64/bin:~/.bin:$PATH
 export SETUP=/opt/dev-setup
 export CATALINA_HOME=$SETUP/apache-tomcat-8.0.14
 export M2_HOME=$SETUP/apache-maven-3.1.1
@@ -168,6 +169,8 @@ export KUBECONFIG=$SETUP/kube-config/aks-16-18-20.yaml
 
 # Disable TCP flow control
 stty -ixon
+# Disable bash escaping the variable $ sign in terminal autocomplete
+shopt -u progcomp
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
