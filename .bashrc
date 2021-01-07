@@ -179,16 +179,18 @@ export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 ktx()
 {
-    local f=$SETUP/kube-config/$1.yml
+    local f=$SETUP/kube-config/$1.yaml
     if [ "$1" = "" ]; then
         echo "Usage: ktx <env>"
+        echo "== Available envs =="
+        ls /opt/dev-setup/kube-config/ | xargs -L1 -I{} basename {} .yaml
         return
     elif [ ! -f $f ]; then
         echo "Unknown k8s env '$1'"
         return
     fi
 
-    export KUBECONFIG=$SETUP/kube-config/$1.yml
+    export KUBECONFIG=$SETUP/kube-config/$1.yaml
     echo "Switched to '$1'"
 }
 
@@ -337,7 +339,7 @@ hgrevd()
 gitd()
 {
     if [ "$1" == "" -o "$2" == "" ]; then
-        echo "Usage: gitrevd rev1 rev2"
+        echo "Usage: gitd rev1 rev2"
         return
     fi
     echo "Total files: " $(git diff --name-only $1 $2 | wc -l)
