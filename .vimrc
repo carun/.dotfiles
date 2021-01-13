@@ -15,6 +15,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/a.vim'
 Plugin 'zah/nim.vim'
+Plugin 'RRethy/vim-illuminate'
 call vundle#end()
 
 " tagbar:
@@ -122,6 +123,8 @@ if has('gui_running')
     set nowrap
     set mouse=
 endif
+
+hi link illuminatedWord Visual
 
 " For clang complete
 "let g:clang_use_library = 1
