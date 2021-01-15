@@ -170,7 +170,7 @@ export KUBECONFIG=$SETUP/kube-config/aks-16-18-20.yaml
 # Disable TCP flow control
 stty -ixon
 # Disable bash escaping the variable $ sign in terminal autocomplete
-shopt -u progcomp
+shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
