@@ -151,7 +151,7 @@ if [ -f ~/.alias ]; then
     . ~/.alias
 fi
 
-export PATH=/opt/dev-setup/ldc2-1.17.0-linux-x86_64/bin:~/.bin:$PATH
+export PATH=/opt/dev-setup/ldc2-linux/bin:~/.bin:$PATH
 export SETUP=/opt/dev-setup
 export CATALINA_HOME=$SETUP/apache-tomcat-8.0.14
 export M2_HOME=$SETUP/apache-maven-3.1.1
@@ -174,7 +174,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 ktx()
@@ -184,6 +184,7 @@ ktx()
         echo "Usage: ktx <env>"
         echo "== Available envs =="
         ls /opt/dev-setup/kube-config/ | xargs -L1 -I{} basename {} .yaml
+        export KUBECONFIG=
         return
     elif [ ! -f $f ]; then
         echo "Unknown k8s env '$1'"
@@ -192,6 +193,15 @@ ktx()
 
     export KUBECONFIG=$SETUP/kube-config/$1.yaml
     echo "Switched to '$1'"
+}
+
+k8s_ctx()
+{
+    if [ "$KUBECONFIG" = "" ]; then
+        return
+    fi
+
+    printf "\n\e[6;90m%s\e[m@\e[6;90m%s\n" $(kubens -c) $(kubectx -c)
 }
 
 # 100% pure Bash (no forking) function to determine the name of the current git branch
