@@ -165,7 +165,6 @@ export OpenCV_DIR=/opt/dev-setup/opencv-4.5.0
 export CURL_ROOT=$SETUP/curl-7.73.0
 export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
-export KUBECONFIG=$SETUP/kube-config/aks-16-18-20.yaml
 
 # Disable TCP flow control
 stty -ixon
