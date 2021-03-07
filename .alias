@@ -39,3 +39,4 @@ alias mtop="top -u $USER"
 alias tailf="tail -f"
 alias k='kubectl'
 alias gdb='gdb -q'
+alias g='git'
