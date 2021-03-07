@@ -17,6 +17,8 @@
     ll = log --graph --decorate --date-order --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %s %C(bold blue)%aN%Creset%C(auto)%d'
     la = log --graph --decorate --all --date-order --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %s %C(bold blue)%aN%Creset%C(auto)%d'
     lg2 = log --graph --abbrev-commit --decorate --date=format:'%Y-%m-%d %H:%M:%S' --format=format:'%C(bold blue)%h%C(reset) %C(black bold)%ad%C(reset) %C(bold yellow)%d%C(reset) %C(blue)%aN%C(reset)%n        %C(white)%s%C(reset)' --all
+    lr = !git la $(git rev-list -g --all)
+    lrg = !git lg $(git rev-list -g --all)
     desc = log --decorate --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %C(bold blue)%aN%Creset%C(auto)%d %n%s%n%b'
     pb  = push
     rb  = rbranch
@@ -106,4 +108,4 @@
 [status]
 	relativePaths = true
 [init]
-	defaultBranch = default
+	defaultBranch = main
