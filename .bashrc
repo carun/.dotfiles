@@ -478,3 +478,4 @@ mem_monitor()
     fi
     while :; do grep -E "VmSize|RSS" /proc/$1/status | awk '{print $2}' | tr '\n' ',' && date "+%Y-%m-%d %H:%M:%S"; sleep 1; done
 }
+source "$HOME/.cargo/env"
