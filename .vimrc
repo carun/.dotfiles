@@ -8,6 +8,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'honza/vim-snippets'
 Plugin 'idanarye/vim-dutyl'
 Plugin 'johnsyweb/vim-makeshift'
+Plugin 'junegunn/fzf.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
 Plugin 'markvincze/panda-vim'
@@ -124,7 +125,6 @@ if has('gui_running')
     set mouse=
 endif
 
-hi link illuminatedWord Visual
 
 " For clang complete
 "let g:clang_use_library = 1
