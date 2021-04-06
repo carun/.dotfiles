@@ -33,3 +33,21 @@ read -n 1 ans
 if [ "$ans" = "y" -o "$ans" = "Y" ]; then
     vim .gitconfig
 fi
+
+mkdir -p ~/.bin
+pushd ~/.bin > /dev/null
+echo "Downloading k9s... "
+curl -# -OL https://github.com/derailed/k9s/releases/download/v0.24.7/k9s_Linux_x86_64.tar.gz
+echo "Downloading kubectx... "
+curl -# -OL https://github.com/ahmetb/kubectx/releases/download/v0.9.3/kubectx_v0.9.3_linux_x86_64.tar.gz
+echo "Downloading kubens... "
+curl -# -OL https://github.com/ahmetb/kubectx/releases/download/v0.9.3/kubens_v0.9.3_linux_x86_64.tar.gz
+
+tar xf k9s_Linux_x86_64.tar.gz
+tar xf kubectx_v0.9.3_linux_x86_64.tar.gz
+tar xf kubens_v0.9.3_linux_x86_64.tar.gz
+
+rm -f k9s_Linux_x86_64.tar.gz kubectx_v0.9.3_linux_x86_64.tar.gz kubens_v0.9.3_linux_x86_64.tar.gz
+popd > /dev/null
+
+echo "Done"
