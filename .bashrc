@@ -300,7 +300,7 @@ se()
 # Diff a git repo
 gd()
 {
-    for file in $(git diff --name-only)
+    for file in $(git diff --name-only --relative)
     do
         echo "$file"
         git difftool --no-prompt $file
@@ -481,5 +481,45 @@ mem_monitor()
         return
     fi
     while :; do grep -E "VmSize|RSS" /proc/$1/status | awk '{print $2}' | tr '\n' ',' && date "+%Y-%m-%d %H:%M:%S"; sleep 1; done
+}
+
+function pss()
+{
+    comm=comm
+    if [ "$1" = "f" ]; then
+        $1=
+        comm=command
+    fi
+
+    if [ "$1" = "" ]; then
+        v=pcpu
+    fi
+
+    ps axo pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,$comm k -$v
+}
+
+function pst()
+{
+    if [ $# -ne 1 ]; then
+        echo "Usage: pst <pid>"
+        echo
+        echo "Print the threads of a process."
+        echo "Use pss/pps/phead to find the required pid and pass it to this command."
+        return
+    fi
+
+    ps axH o lwp,pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,comm -q $1
+}
+
+function pps()
+{
+    if [ $# -ne 1 ]; then
+        echo "Usage: pps <process-name>"
+        echo
+        echo "Print details matching process name."
+        return
+    fi
+
+    ps o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm -C $1
 }
 
