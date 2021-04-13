@@ -17,8 +17,8 @@
     lg = log --graph --decorate --all --date-order --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %s %C(bold blue)%aN%Creset%C(auto)%d'
     la = !git lg $(git rev-list -g --all)
     desc = log --decorate --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %C(bold blue)%aN%Creset%C(auto)%d %n%s%n%b'
-    pb  = push
-    rb  = rbranch
+    fp  = push --force-with-lease
+    bd  = branch -d
     st  = status -s --no-untracked-files
     vim = difftool
     serv = daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
