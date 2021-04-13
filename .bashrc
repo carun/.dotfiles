@@ -485,12 +485,13 @@ mem_monitor()
 
 function pss()
 {
-    comm=comm
+    local comm=comm
     if [ "$1" = "f" ]; then
         $1=
         comm=command
     fi
 
+    local v=$1
     if [ "$1" = "" ]; then
         v=pcpu
     fi
