@@ -1,9 +1,10 @@
+alias grc='grc --colour=on'
 alias rm='rm -i'
 alias ls='ls --color=auto'
 alias lt='ls -lart | tail'
 alias ltt='ls -lart --full-time | tail'
 alias pcpu='pss | head'
-alias pmem='pss pmem | head'
+alias pmem='pss -s pmem | head'
 alias grep='grep -n --color=auto --exclude-dir=\.git'
 alias nau="nautilus --browser . --no-desktop >/dev/null 2>&1 &"
 alias shut='wget -t 1 -O /dev/null http://192.168.1.110:15000/shutdown'

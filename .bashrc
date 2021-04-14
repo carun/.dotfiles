@@ -180,6 +180,9 @@ if [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
 fi
 
+grc > /dev/null 2>&1
+export FOUND_GRC=$?
+
 ktx()
 {
     local f=$SETUP/kube-config/$1.yaml
@@ -485,31 +488,71 @@ mem_monitor()
 
 function pss()
 {
+    optstring="fns:"
+
+    local OPTIND arg color full s=pcpu
     local comm=comm
-    if [ "$1" = "f" ]; then
-        $1=
-        comm=command
-    fi
+    while getopts ${optstring} arg; do
+        case "${arg}" in
+            n) color="n"
+                ;;
+            f) comm="${OPTARG}"
+                ;;
+            s) s="${OPTARG}"
+                ;;
+            ?)
+                echo "Invalid option: -${OPTARG}."
+                echo
+                echo "Usage: pss -s <column-name> -f -c"
+                echo
+                echo "Prints the process statistics"
+                echo "  -n disable color output"
+                echo "  -f display full args"
+                echo "  -s <sort-by-column>"
+                return
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
 
-    local v=$1
-    if [ "$1" = "" ]; then
-        v=pcpu
+    if [ "$color" = "n" -o $FOUND_GRC -ne 0 ]; then
+        ps axo pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,$comm k -$s
+    else
+        grc ps axo pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,$comm k -$s
     fi
-
-    ps axo pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,$comm k -$v
 }
 
 function pst()
 {
-    if [ $# -ne 1 ]; then
-        echo "Usage: pst <pid>"
-        echo
-        echo "Print the threads of a process."
-        echo "Use pss/pps/phead to find the required pid and pass it to this command."
-        return
-    fi
+    optstring="np:"
 
-    ps axH o lwp,pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,comm -q $1
+    local OPTIND arg color pid
+    while getopts ${optstring} arg; do
+        case "${arg}" in
+            n) color="n"
+                ;;
+            p) pid="${OPTARG}"
+                ;;
+            ?)
+                echo "Invalid option: -${OPTARG}."
+                echo
+                echo "Usage: pst -p <pid> -c"
+                echo
+                echo "Print the threads of a process."
+                echo "Use pss/pps/pcpu to find the required pid and pass it to this command."
+                echo "  -p <pid>: process ID"
+                echo "  -n disable color output"
+                return
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    if [ "$color" = "n" -o $FOUND_GRC -ne 0 ]; then
+        ps axH o lwp,pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,comm -q $pid
+    else
+        grc ps axH o lwp,pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,comm -q $pid
+    fi
 }
 
 function pps()
@@ -521,6 +564,6 @@ function pps()
         return
     fi
 
-    ps o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm -C $1
+    grc ps o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm -C $1
 }
 
