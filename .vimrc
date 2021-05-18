@@ -18,6 +18,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/a.vim'
 Plugin 'zah/nim.vim'
 Plugin 'RRethy/vim-illuminate'
+Plugin 'habamax/vim-asciidoctor'
+Plugin 'will133/vim-dirdiff'
 call vundle#end()
 
 " tagbar:
@@ -98,6 +100,7 @@ if &diff
 endif
 filetype plugin on
 filetype plugin indent on
+au BufNewFile,BufRead *.ad set filetype=adoc
 au BufNewFile,BufRead *.di set filetype=d
 au BufNewFile,BufRead *gdb* set filetype=gdb
 au BufNewFile,BufRead *.val set filetype=valgrind
