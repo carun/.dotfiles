@@ -153,18 +153,15 @@ fi
 
 export PATH=/opt/dev-setup/ldc2-linux/bin:~/.bin:$PATH
 export SETUP=/opt/dev-setup
-export CATALINA_HOME=$SETUP/apache-tomcat-8.0.14
-export M2_HOME=$SETUP/apache-maven-3.1.1
 export TERM=screen-256color
 export CORE_LIB_PATH=/opt/Corelibs
 export JSON_ROOT=$SETUP/json-3.9.1
-export SBH_AZ_DEV=aimesdev.azurecr.io/sbh-aimes
-export TFS_DOCKER=tfsdocker.ids.com/v2/sbh-es
 export CMAKE_GENERATOR=Ninja
 export OpenCV_DIR=/opt/dev-setup/opencv-4.5.0
 export CURL_ROOT=$SETUP/curl-7.73.0
 export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
+export Protobuf_ROOT=$SETUP/protobuf-3.7.1
 
 # Disable TCP flow control
 stty -ixon
