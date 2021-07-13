@@ -35,4 +35,4 @@ alias gdb='gdb -q'
 alias kmem='while :; do clear; k top pods -A | sort -hk4 | tail; sleep 2; done'
 alias kcpu='while :; do clear; k top pods -A | sort -hk3 | tail; sleep 2; done'
 alias dw='k delete deployments,services,rs,pods -l appType=EXTRACT; k delete deployments,services,rs,pods -l appType=SEARCH; k delete deployments,services,rs,pods -l appType=DATA_MANAGER'
-
+alias kgp='k get pods'
