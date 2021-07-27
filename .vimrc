@@ -94,7 +94,6 @@ set backspace=indent,eol,start
 set sessionoptions-=options
 set encoding=utf-8
 set fileencoding=utf-8
-set nu relativenumber
 if &diff
     set noreadonly
 endif
@@ -218,10 +217,11 @@ map Y gqgq
 map Q i<cr><esc>l
 map <F1> :w<cr>:call g:ClangUpdateQuickFix()<cr>co
 map <F2> :wn<cr>
-map <F3> :qa<cr>
+nnoremap <F7> :se nu!<cr>
 map <F5> :make clean && make -j4<cr><cr>
 map <F6> :tabe<space>
 "map <F7> :make clean && make -j10<cr><cr><cr>
+map <F7> :se nu!<cr>
 map <F8> :se paste!<cr>
 map <F9> :%s,\s\+$,,<cr>
 map <F10> :se wrap!<cr>

@@ -162,6 +162,7 @@ export CURL_ROOT=$SETUP/curl-7.73.0
 export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
 export Protobuf_ROOT=$SETUP/protobuf-3.7.1
+export FFMPEG_ROOT=$SETUP/ffmpeg-4.4-g4ff73add5d-20210723
 
 # Disable TCP flow control
 stty -ixon
