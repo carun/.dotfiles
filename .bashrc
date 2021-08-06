@@ -174,10 +174,6 @@ shopt -s direxpand
 export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
-if [ -f "$HOME/.cargo/env" ]; then
-    source "$HOME/.cargo/env"
-fi
-
 grc > /dev/null 2>&1
 export FOUND_GRC=$?
 
@@ -481,7 +477,7 @@ mem_monitor()
         echo "Monitors the virual and physical memory usage of a process"
         return
     fi
-    while :; do grep -E "VmSize|RSS" /proc/$1/status | awk '{print $2}' | tr '\n' ',' && date "+%Y-%m-%d %H:%M:%S"; sleep 1; done
+    while :; do grep -E "VmSize|RSS|VmData" /proc/$1/status | awk '{print $2}' | tr '\n' ',' && date "+%Y-%m-%d %H:%M:%S"; sleep 5; done
 }
 
 function pss()
