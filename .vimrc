@@ -20,6 +20,7 @@ Plugin 'zah/nim.vim'
 Plugin 'RRethy/vim-illuminate'
 Plugin 'habamax/vim-asciidoctor'
 Plugin 'will133/vim-dirdiff'
+Plugin 'mjakl/vim-asciidoc'
 call vundle#end()
 
 " tagbar:
@@ -186,7 +187,7 @@ function! FormatDOnSave()
     !dfmt .
 endfunction
 
-autocmd BufWritePre *.h,*.cc,*.cpp,*.hpp call FormatCppOnSave()
+"autocmd BufWritePre *.h,*.cc,*.cpp,*.hpp call FormatCppOnSave()
 "autocmd BufWritePre *.d,*.di call FormatDOnSave()
 
 fun! ShowFuncName()

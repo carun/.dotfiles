@@ -103,6 +103,7 @@ intro=never
 
 [email]
 to = mercurial-devel@mercurial-scm.org
+#to = smem@selenic.com
 from = Arun Chandrasekaran <aruncxy@gmail.com>
 method = smtp
 

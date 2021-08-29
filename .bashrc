@@ -163,6 +163,7 @@ export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
 export Protobuf_ROOT=$SETUP/protobuf-3.7.1
 export FFMPEG_ROOT=$SETUP/ffmpeg-4.4-g4ff73add5d-20210723
+export SPDLOG_ROOT=$SETUP/spdlog-1.9.2
 
 # Disable TCP flow control
 stty -ixon
@@ -171,7 +172,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BBla\D{%Y-%m-%d} \t$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
@@ -559,5 +560,17 @@ function pps()
     fi
 
     grc ps o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm -C $1
+}
+
+function ke()
+{
+    if [ $# -ne 2 ]; then
+        echo "Usage: ke <pod-name> <command>"
+        echo
+        echo "Execute the command in the given k8s pod"
+        return
+    fi
+
+    k exec -it $1 -- $2
 }
 
