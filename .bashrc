@@ -564,13 +564,18 @@ function pps()
 
 function ke()
 {
-    if [ $# -ne 2 ]; then
+    if [ $# -ne 1 ]; then
         echo "Usage: ke <pod-name> <command>"
         echo
         echo "Execute the command in the given k8s pod"
         return
     fi
 
-    k exec -it $1 -- $2
+    local shell=$2
+    if [ "$shell" = "" ]; then
+        shell=bash
+    fi
+
+    k exec -it $1 -- $shell
 }
 

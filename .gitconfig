@@ -1,7 +1,7 @@
 [user]
     name  = Arun Chandrasekaran
-    #email = arun.chandrasekaran@necam.com
-    email = aruncxy@gmail.com
+    email = arun.chandrasekaran@necam.com
+    #email = aruncxy@gmail.com
 
 [alias]
     br  = branch
@@ -20,7 +20,7 @@
     desc = log --decorate --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(bold blue)%h%Creset %C(black bold)%ad%Creset %C(bold blue)%aN%Creset%C(auto)%d %n%s%n%b'
     fp  = push --force-with-lease
     bd  = branch -d
-    st  = status -s --no-untracked-files
+    st  = status -s --no-untracked-files -uno
     vim = difftool
     serv = daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
     mt = mergetool
