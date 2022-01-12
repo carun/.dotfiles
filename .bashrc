@@ -151,19 +151,21 @@ if [ -f ~/.alias ]; then
     . ~/.alias
 fi
 
-export PATH=/opt/dev-setup/ldc2-linux/bin:~/.bin:$PATH
-export SETUP=/opt/dev-setup
 export TERM=screen-256color
-export CORE_LIB_PATH=/opt/Corelibs
-export JSON_ROOT=$SETUP/json-3.9.1
 export CMAKE_GENERATOR=Ninja
-export OpenCV_DIR=/opt/dev-setup/opencv-4.5.0
+export SETUP=/opt/dev-setup
+export CORE_LIB_PATH=/opt/Corelibs
+export PATH=$SETUP/ldc2-linux/bin:~/.bin:$PATH
+export JSON_ROOT=$SETUP/json-3.9.1
+export OpenCV_DIR=$SETUP/opencv-4.5.0
 export CURL_ROOT=$SETUP/curl-7.73.0
 export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
 export Protobuf_ROOT=$SETUP/protobuf-3.7.1
 export FFMPEG_ROOT=$SETUP/ffmpeg-4.4-g4ff73add5d-20210723
 export SPDLOG_ROOT=$SETUP/spdlog-1.9.2
+export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
+export NeoFaceLicenseRepo=~/code/neoface-licenses
 
 # Disable TCP flow control
 stty -ixon
