@@ -1,6 +1,6 @@
 [ui]
 #username = Arun Chandrasekaran <aruncxy@gmail.com>
-username = Arun Chandrasekaran <arun.chandrasekaran@necam.com>
+username = Arun Chandrasekaran <arun@paravision.ai>
 editor = vim
 merge = vimdiff
 interface = curses
