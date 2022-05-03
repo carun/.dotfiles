@@ -155,17 +155,14 @@ export TERM=screen-256color
 export CMAKE_GENERATOR=Ninja
 export SETUP=/opt/dev-setup
 export CORE_LIB_PATH=/opt/Corelibs
-export PATH=$SETUP/ldc2-linux/bin:~/.bin:$PATH
+export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/drogon-20220502-f017b09/bin:$PATH
 export JSON_ROOT=$SETUP/json-3.9.1
 export OpenCV_DIR=$SETUP/opencv-4.5.0
-export CURL_ROOT=$SETUP/curl-7.73.0
-export CURL_INCLUDE_DIR=$CURL_ROOT/include
 export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
 export Protobuf_ROOT=$SETUP/protobuf-3.7.1
 export FFMPEG_ROOT=$SETUP/ffmpeg-4.4-g4ff73add5d-20210723
 export SPDLOG_ROOT=$SETUP/spdlog-1.9.2
 export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
-export NeoFaceLicenseRepo=~/code/neoface-licenses
 
 # Disable TCP flow control
 stty -ixon
@@ -581,3 +578,21 @@ function ke()
     k exec -it $1 -- $shell
 }
 
+function ed()
+{
+    # Converts Windows paths to WSL/Ubuntu paths, prefixing /mnt/driveletter and preserving case of the rest of the arguments,
+    # replacing backslashed with forwardslashes
+    # example:
+    # Input -> "J:\Share"
+    # Output -> "/mnt/j/Share"
+    # echo "Input --> $1" #for debugging
+    line=$(sed -e 's#^\(.\):#/mnt/\L\1#' -e 's#\\#/#g' <<< "$1")
+    # Group the first character at the beginning of the string. e.g. "J:\Share", select "J" by using () but match only if it has colon as the second character
+    # replace J: with /mnt/j
+    # \L = lowercase , \1 = first group (of single letter)
+    # 2nd part of expression
+    # replaces every \ with /, saving the result into the var line.
+    # Note it uses another delimiter, #, to make it more readable.
+    # echo "Output --> $line" #for debugging
+    cd "$line" # change to that directory
+}

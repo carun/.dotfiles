@@ -269,7 +269,7 @@ nnoremap <F5> :<C-U>MakeshiftBuild check<CR>
 ab cO Arun \|<esc>:r!date +\%d\%b\%y\ \\|<esc>kJA
 ab FIXME FIXME: Arun \|<esc>:r!date +\%d\%b\%y\ \\|<esc>kJA
 ab TODO TODO: Arun \|<esc>:r!date +\%d\%b\%y\ \\|<esc>kJA
-ab aU @author Arun Chandrasekaran <arun.chandrasekaran@necam.com>
+ab aU @author Arun Chandrasekaran <arun@paravision.ai>
 cnoreabbrev W w
 cnoreabbrev m make
 cnoreabbrev qm !qmake mode=debug
