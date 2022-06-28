@@ -154,15 +154,24 @@ fi
 export TERM=screen-256color
 export CMAKE_GENERATOR=Ninja
 export SETUP=/opt/dev-setup
-export CORE_LIB_PATH=/opt/Corelibs
-export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/drogon-20220502-f017b09/bin:$PATH
 export JSON_ROOT=$SETUP/json-3.9.1
-export OpenCV_DIR=$SETUP/opencv-4.5.0
-export PKG_CONFIG_PATH=$CURL_ROOT/lib/pkgconfig
-export Protobuf_ROOT=$SETUP/protobuf-3.7.1
-export FFMPEG_ROOT=$SETUP/ffmpeg-4.4-g4ff73add5d-20210723
-export SPDLOG_ROOT=$SETUP/spdlog-1.9.2
+export OpenCV_DIR=$SETUP/opencv-4.6.0
 export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
+export Drogon_DIR=$SETUP/drogon-20220511-c5a1888
+export Trantor_DIR=$Drogon_DIR
+export spdlog_DIR=$SETUP/spdlog-1.10.0
+export FFmpeg_DIR=$SETUP/ffmpeg-5.0.1
+export InferenceEngine_DIR=$SETUP/intel/openvino_2022/runtime
+export ngraph_DIR=$InferenceEngine_DIR
+export OpenVINO_DIR=$ngraph_DIR
+export PVRecogOpenvino_DIR=$SETUP/pv-cpp-sdk-openvino
+export PVAttriOpenvino_DIR=$PVRecogOpenvino_DIR
+export PVRecogTensorrt_DIR=$SETUP/pv-cpp-sdk-tensorrt
+export PVAttriTensorrt_DIR=$PVRecogTensorrt_DIR
+export Protobuf_DIR=$SETUP/protobuf-3.21.4
+export RdKafka_DIR=$SETUP/librdkafka-1.9.1
+export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$FFmpeg_DIR/lib:$LD_LIBRARY_PATH
 
 # Disable TCP flow control
 stty -ixon
