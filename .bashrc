@@ -170,8 +170,11 @@ export PVRecogTensorrt_DIR=$SETUP/pv-cpp-sdk-tensorrt
 export PVAttriTensorrt_DIR=$PVRecogTensorrt_DIR
 export Protobuf_DIR=$SETUP/protobuf-3.21.4
 export RdKafka_DIR=$SETUP/librdkafka-1.9.1
+export CURL_DIR=$SETUP/curl-7.84.0
 export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export LD_LIBRARY_PATH=$FFmpeg_DIR/lib:$LD_LIBRARY_PATH
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Disable TCP flow control
 stty -ixon
@@ -185,24 +188,7 @@ export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
 export FOUND_GRC=$?
-
-ktx()
-{
-    local f=$SETUP/kube-config/$1.yaml
-    if [ "$1" = "" ]; then
-        echo "Usage: ktx <env>"
-        echo "== Available envs =="
-        ls /opt/dev-setup/kube-config/ | xargs -L1 -I{} basename {} .yaml
-        export KUBECONFIG=
-        return
-    elif [ ! -f $f ]; then
-        echo "Unknown k8s env '$1'"
-        return
-    fi
-
-    export KUBECONFIG=$SETUP/kube-config/$1.yaml
-    echo "Switched to '$1'"
-}
+source "$HOME/.cargo/env"
 
 k8s_ctx()
 {

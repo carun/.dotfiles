@@ -22,6 +22,7 @@
     bd  = branch -d
     st  = status -s --no-untracked-files -uno
     vim = difftool
+    # Use `git clone git://127.0.0.1/ <new-repo-name>` on the client
     serv = daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
     mt = mergetool
     m3 = mergetool -t merge3
