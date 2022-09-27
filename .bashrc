@@ -190,6 +190,8 @@ export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 grc > /dev/null 2>&1
 export FOUND_GRC=$?
 source "$HOME/.cargo/env"
+source <(kubectl completion bash)
+complete -o default -F __start_kubectl k
 
 k8s_ctx()
 {
