@@ -163,6 +163,7 @@ export spdlog_DIR=$SETUP/spdlog-1.10.0
 export FFmpeg_DIR=$SETUP/ffmpeg-5.0.1
 export InferenceEngine_DIR=$SETUP/intel/openvino_2022/runtime
 export ngraph_DIR=$InferenceEngine_DIR
+export doctest_DIR=$SETUP/doctest-2.4.9
 export OpenVINO_DIR=$ngraph_DIR
 export PVRecogOpenvino_DIR=$SETUP/pv-cpp-sdk-openvino
 export PVAttriOpenvino_DIR=$PVRecogOpenvino_DIR
