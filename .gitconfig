@@ -100,7 +100,7 @@
     file = /home/arun/.mailmap
 [core]
     editor = vim
-    autocrlf = false
+    autocrlf = input
 [http]
     sslVerify = false
 [mergetool "merge3"]

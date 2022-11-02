@@ -157,7 +157,7 @@ export SETUP=/opt/dev-setup
 export JSON_ROOT=$SETUP/json-3.9.1
 export OpenCV_DIR=$SETUP/opencv-4.6.0
 export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
-export Drogon_DIR=$SETUP/drogon-20220511-c5a1888
+export Drogon_DIR=$SETUP/drogon-1.8.1
 export Trantor_DIR=$Drogon_DIR
 export spdlog_DIR=$SETUP/spdlog-1.10.0
 export FFmpeg_DIR=$SETUP/ffmpeg-5.0.1
@@ -177,6 +177,7 @@ export gRPC_DIR=$SETUP/gRPC-1.49.1
 export absl_DIR=$gRPC_DIR
 export cares_DIR=$gRPC_DIR
 export re2_DIR=$gRPC_DIR
+export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
 export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export LD_LIBRARY_PATH=$FFmpeg_DIR/lib:$LD_LIBRARY_PATH
@@ -189,7 +190,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BBla\$(kubens -c)$RCol@$BBla\$(kubectx -c)$RCol\n$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$BYel\$(kubens -c)$RCol@$BRed\$(kubectx -c)$RCol\n$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
