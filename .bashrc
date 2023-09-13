@@ -169,18 +169,16 @@ export PVRecogOpenvino_DIR=$SETUP/pv-cpp-sdk-openvino
 export PVAttriOpenvino_DIR=$PVRecogOpenvino_DIR
 export PVRecogTensorrt_DIR=$SETUP/pv-cpp-sdk-tensorrt
 export PVAttriTensorrt_DIR=$PVRecogTensorrt_DIR
-export Protobuf_DIR=$SETUP/protobuf-3.21.4
 export RdKafka_DIR=$SETUP/librdkafka-1.9.1
 export knowhere_DIR=$SETUP/knowhere-1.3.2
 export CURL_DIR=$SETUP/curl-7.84.0
-export gRPC_DIR=$SETUP/gRPC-1.49.1
+export gRPC_DIR=$SETUP/gRPC-1.52.2
 export absl_DIR=$gRPC_DIR
 export cares_DIR=$gRPC_DIR
 export re2_DIR=$gRPC_DIR
 export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
 export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
-export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-export LD_LIBRARY_PATH=$FFmpeg_DIR/lib:$LD_LIBRARY_PATH
+export PATH="$PATH:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Disable TCP flow control
@@ -198,6 +196,18 @@ export FOUND_GRC=$?
 source "$HOME/.cargo/env"
 source <(kubectl completion bash)
 complete -o default -F __start_kubectl k
+
+# NEC begin
+export CORE_LIB_PATH=/opt/Corelibs
+export Protobuf_DIR=$SETUP/protobuf-3.7.1
+export OpenCV_DIR=$SETUP/opencv-4.5.0
+export json_ROOT=$SETUP/json-3.11.2
+export SPDLOG_ROOT=$SETUP/spdlog-1.9.2
+export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
+export NeoFaceLicenseRepo=~/code/neoface-licenses
+export NecIrisLicenseRepo=~/code/Niris-license
+export LD_LIBRARY_PATH=$CORE_LIB_PATH/NeoFaceV4/4.2.1.3500-usermode/bin
+# NEC end
 
 k8s_ctx()
 {
@@ -600,3 +610,27 @@ function ed()
     # echo "Output --> $line" #for debugging
     cd "$line" # change to that directory
 }
+
+export GPG_TTY=$(tty)
+export SSH_ENV=$HOME/.ssh/agent-env
+
+start_ssh_agent() {
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}" || echo "Failed to initialize SSH agent"
+    chmod 600 "${SSH_ENV}"
+    source "${SSH_ENV}" > /dev/null
+    for file in ~/.ssh/id_rsa ~/.ssh/id_ed25519; do
+        if [ -f $file ]; then
+            echo Loading ssh-key: $file
+            /usr/bin/ssh-add $file
+        fi
+    done
+}
+
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    source "${SSH_ENV}" > /dev/null
+    ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || start_ssh_agent
+else
+    start_ssh_agent
+fi
+
