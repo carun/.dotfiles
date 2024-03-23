@@ -158,7 +158,7 @@ export OpenCV_DIR=$SETUP/opencv-4.6.0
 export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
 export Drogon_DIR=$SETUP/drogon-1.8.1
 export Trantor_DIR=$Drogon_DIR
-export spdlog_DIR=$SETUP/spdlog-1.10.0
+export spdlog_DIR=$SETUP/spdlog-1.13.0
 export FFmpeg_DIR=$SETUP/ffmpeg-5.0.1
 export InferenceEngine_DIR=$SETUP/intel/openvino_2022/runtime
 export ngraph_DIR=$InferenceEngine_DIR
@@ -178,8 +178,8 @@ export cares_DIR=$gRPC_DIR
 export re2_DIR=$gRPC_DIR
 export Protobuf_ROOT=$gRPC_DIR
 export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
-export PATH=$SETUP/ldc2-linux/bin:~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH=~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/opt/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04/bin:$PATH
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Disable TCP flow control
@@ -189,7 +189,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BYel\$(kubens -c)$RCol@$BRed\$(kubectx -c)$RCol\n$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 alias kubectl=kubectl.exe
@@ -204,11 +204,11 @@ export CORE_LIB_PATH=/opt/Corelibs
 export OpenCV_DIR=$SETUP/opencv-4.8.0
 export json_ROOT=$SETUP/json-3.11.2
 export JSON_ROOT=$json_ROOT
-export SPDLOG_ROOT=$SETUP/spdlog-1.12.0
+export SPDLOG_ROOT=$spdlog_DIR
 export RdKafka_ROOT=$SETUP/librdkafka-2.2.0
+export LibDataChannel_DIR=$SETUP/libdatachannel
 export NeoFaceLicenseRepo=~/code/neoface-licenses
 export NecIrisLicenseRepo=~/code/Niris-license
-export LD_LIBRARY_PATH=$CORE_LIB_PATH/NeoFaceV4/4.2.1.3500-usermode/bin
 # NEC end
 
 k8s_ctx()
@@ -645,3 +645,4 @@ else
     start_ssh_agent
 fi
 
+source /home/arun/.config/broot/launcher/bash/br
