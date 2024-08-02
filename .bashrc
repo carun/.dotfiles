@@ -192,21 +192,10 @@ shopt -s direxpand
 export PS1="$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
-alias kubectl=kubectl.exe
 grc > /dev/null 2>&1
 export FOUND_GRC=$?
-source "$HOME/.cargo/env"
-source <(kubectl completion bash)
-complete -o default -F __start_kubectl k
 
 # NEC begin
-export CORE_LIB_PATH=/opt/Corelibs
-export OpenCV_DIR=$SETUP/opencv-4.8.0
-export json_ROOT=$SETUP/json-3.11.2
-export JSON_ROOT=$json_ROOT
-export SPDLOG_ROOT=$spdlog_DIR
-export RdKafka_ROOT=$SETUP/librdkafka-2.2.0
-export LibDataChannel_DIR=$SETUP/libdatachannel
 export NeoFaceLicenseRepo=~/code/neoface-licenses
 export NecIrisLicenseRepo=~/code/Niris-license
 # NEC end
@@ -645,4 +634,7 @@ else
     start_ssh_agent
 fi
 
+source <(kubectl completion bash)
+complete -o default -F __start_kubectl k
 source /home/arun/.config/broot/launcher/bash/br
+source "$HOME/.cargo/env"
