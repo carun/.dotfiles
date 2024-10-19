@@ -77,8 +77,9 @@
     tool = vimdiff
     log = true
 
-#[push]
+[push]
   #default = simple
+    autoSetupRemote = true
 
 [rerere]
     enabled = 1
