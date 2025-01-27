@@ -17,7 +17,7 @@ Whi='\[\e[0;37m\]';  BWhi='\[\e[1;37m\]';  UWhi='\[\e[4;37m\]';  IWhi='\[\e[0;97
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *);;
+      *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -49,7 +49,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -178,8 +178,8 @@ export cares_DIR=$gRPC_DIR
 export re2_DIR=$gRPC_DIR
 export Protobuf_ROOT=$gRPC_DIR
 export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
-export PATH=~/.bin:$SETUP/cmake-3.23.1-linux-x86_64/bin:$SETUP/sonar-scanner-4.7.0.2747-linux/bin:$SETUP/build-wrapper-linux-x86:~/.bin:$FFmpeg_DIR/bin:$PATH
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/opt/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH
+export XDG_DATA_DIRS=~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Disable TCP flow control
@@ -189,7 +189,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$BBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')\$(k8s_ctx '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$IBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
@@ -602,39 +602,12 @@ function ed()
     cd "$line" # change to that directory
 }
 
+function idf()
+{
+    source ~/esp/v5.4/esp-idf/export.sh
+}
+
 export GPG_TTY=$(tty)
-export SSH_ENV=$HOME/.ssh/agent-env
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-start_ssh_agent() {
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}" || echo "Failed to initialize SSH agent"
-    chmod 600 "${SSH_ENV}"
-    source "${SSH_ENV}" > /dev/null
-}
-
-add_ssh_keys_to_agent() {
-    declare -A key_shas
-    for file in $(find ~/.ssh -name "id_*"); do
-        key_shas["$file"]=$(ssh-keygen -lf $file | awk '{print $2}')
-    done
-    agent_shas=( $(ssh-add -l | awk '{print $2}') )
-    for file in ~/.ssh/id_rsa ~/.ssh/id_ed25519; do
-        if [[ -f $file && ! ${agent_shas[@]} =~ "${key_shas[$file]}" ]]; then
-            echo Loading ssh-key: $file
-            /usr/bin/ssh-add $file
-        fi
-    done
-}
-
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    source "${SSH_ENV}" > /dev/null
-    ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || start_ssh_agent
-    add_ssh_keys_to_agent
-else
-    start_ssh_agent
-fi
-
-source <(kubectl completion bash)
-complete -o default -F __start_kubectl k
-source /home/arun/.config/broot/launcher/bash/br
 source "$HOME/.cargo/env"

@@ -1,7 +1,6 @@
 [user]
     name  = Arun
-    #email = arun.c@necam.com
-    email = chan0392@e.ntu.edu.sg
+    email = visionofarun@gmail.com
     signingkey = 6E03944C9957360C
 
 [credential]
@@ -12,6 +11,7 @@
 
 [tag]
     forceSignAnnotated = true
+	gpgsign = true
 
 [alias]
     br  = branch

@@ -1,14 +1,10 @@
 #!/bin/bash
 
 ln -sf $PWD/.alias ~/.alias
-ln -sf $PWD/.hgrc ~/.hgrc
 ln -sf $PWD/.vimrc ~/.vimrc
 ln -sf $PWD/.toprc ~/.toprc
 ln -sf $PWD/.bashrc ~/.bashrc
-ln -sf $PWD/.screenrc ~/.screenrc
 ln -sf $PWD/.gitconfig ~/.gitconfig
-ln -sf $PWD/.valgrindrc ~/.valgrindrc
-ln -sf $PWD/.lcovrc ~/.lcovrc
 
 awk -F= '/^ID=/{print $2}' /etc/os-release | /bin/grep -iE "rhel|centos" > /dev/null 2>&1
 
@@ -34,20 +30,13 @@ if [ "$ans" = "y" -o "$ans" = "Y" ]; then
     vim .gitconfig
 fi
 
-mkdir -p ~/.bin
-pushd ~/.bin > /dev/null
-echo "Downloading k9s... "
-curl -# -OL https://github.com/derailed/k9s/releases/download/v0.26.0/k9s_Linux_x86_64.tar.gz
-echo "Downloading kubectx... "
-curl -# -OL https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubectx_v0.9.4_linux_x86_64.tar.gz
-echo "Downloading kubens... "
-curl -# -OL https://github.com/ahmetb/kubectx/releases/download/v0.9.4/kubens_v0.9.4_linux_x86_64.tar.gz
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
 
-tar xf k9s_Linux_x86_64.tar.gz
-tar xf kubectx_v0.9.4_linux_x86_64.tar.gz
-tar xf kubens_v0.9.4_linux_x86_64.tar.gz
+echo "enable-ssh-support
+default-cache-ttl-ssh 1800
+max-cache-ttl-ssh 7200" > ~/.gnupg/gpg-agent.conf
 
-rm -f k9s_Linux_x86_64.tar.gz kubectx_v0.9.3_linux_x86_64.tar.gz kubens_v0.9.3_linux_x86_64.tar.gz
-popd > /dev/null
+echo 60E0B0D0702A825466F6C0C951970C0253C5E3CA > ~/.gnupg/sshcontrol
 
 echo "Done"
