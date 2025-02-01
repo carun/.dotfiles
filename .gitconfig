@@ -125,3 +125,5 @@
 [blame]
     coloring = highlightRecent
     date = human
+[gpg "openpgp"]
+	program = gpg
