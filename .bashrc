@@ -609,5 +609,8 @@ function idf()
 
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+if [ -n "$WSL_DISTRO_NAME" ]; then
+    gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
+fi
 
 source "$HOME/.cargo/env"

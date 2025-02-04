@@ -22,3 +22,4 @@ alias kcpu='while :; do clear; k top pods -A | sort -hk3 | tail; sleep 2; done'
 alias dw='k delete deployments,services,rs,pods -l appType=extract; k delete deployments,services,rs,pods -l appType=search; k delete statefulsets,services,rs,pods -l appType=data'
 alias kgp='k get pods'
 alias ktx=kubectx
+alias sg=sourcegit
