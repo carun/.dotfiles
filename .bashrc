@@ -178,7 +178,7 @@ export cares_DIR=$gRPC_DIR
 export re2_DIR=$gRPC_DIR
 export Protobuf_ROOT=$gRPC_DIR
 export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:/opt/oclint/bin
 export XDG_DATA_DIRS=~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 

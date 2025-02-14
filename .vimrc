@@ -59,7 +59,7 @@ let g:tagbar_type_d = {
 \ }
 
 syn on
-colo wombat256i
+colo Tomorrow-Night-Bright
 if has("mouse_sgr")
     set ttymouse=sgr
 else
