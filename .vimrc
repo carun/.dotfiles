@@ -21,6 +21,8 @@ Plugin 'RRethy/vim-illuminate'
 Plugin 'habamax/vim-asciidoctor'
 Plugin 'will133/vim-dirdiff'
 Plugin 'mjakl/vim-asciidoc'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
 call vundle#end()
 
 " tagbar:

@@ -189,7 +189,7 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$IBla\D{%Y-%m-%d} \t$RCol \h $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$IBla\D{%Y-%m-%d} \t$RCol $BYel\$(__esp_idf_ps1)$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
@@ -199,6 +199,14 @@ export FOUND_GRC=$?
 export NeoFaceLicenseRepo=~/code/neoface-licenses
 export NecIrisLicenseRepo=~/code/Niris-license
 # NEC end
+
+__esp_idf_ps1()
+{
+    if [ -z $ESP_IDF_VERSION ]; then
+        return
+    fi
+    printf "IDF-%s" "$ESP_IDF_VERSION"
+}
 
 k8s_ctx()
 {
@@ -602,9 +610,30 @@ function ed()
     cd "$line" # change to that directory
 }
 
+function print_esp_idf_versions()
+{
+    versions=( $(find ~/.esp -maxdepth 1 -mindepth 1 -type d | xargs -L1 basename | cut -dv -f2) )
+    echo "  Available ESP IDF versions:"
+    for ver in ${versions[*]}; do
+        echo "      ${ver}"
+    done
+}
+
 function idf()
 {
-    source ~/esp/v5.4/esp-idf/export.sh
+    if [ -z "$1" ]; then
+        echo "usage: idf <version>"
+        print_esp_idf_versions
+        return
+    fi
+
+    local version=$1
+    if [ ! -d ~/.esp/v$version ]; then
+        echo "Unknown ESP IDF version $version"
+        print_esp_idf_versions
+        return
+    fi
+    source ~/.esp/v$version/esp-idf/export.sh
 }
 
 export GPG_TTY=$(tty)
@@ -613,4 +642,4 @@ if [ -n "$WSL_DISTRO_NAME" ]; then
     gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
 fi
 
-source "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
