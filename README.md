@@ -1,5 +1,5 @@
 # Setup
 
 ```
-git clone https://github.com/carun/dot-files && cd dot-files && ./install.sh
+git clone https://github.com/carun/.dotfiles && cd .dotfiles && ./install.sh
 ```

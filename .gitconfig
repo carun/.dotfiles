@@ -40,6 +40,7 @@
     anno = blame
     id = rev-parse --short HEAD
     he = rebase -i
+    rmbr = "!f(){ git branch -d ${1} && git push origin --delete ${1}; };f"
 
 
 [branch]
