@@ -153,34 +153,8 @@ fi
 
 export TERM=screen-256color
 export CMAKE_GENERATOR=Ninja
-export SETUP=/opt/dev-setup
-export OpenCV_DIR=$SETUP/opencv-4.6.0
-export RdKafka_ROOT=$SETUP/librdkafka-1.8.2
-export Drogon_DIR=$SETUP/drogon-1.8.1
-export Trantor_DIR=$Drogon_DIR
-export spdlog_DIR=$SETUP/spdlog-1.13.0
-export FFmpeg_DIR=$SETUP/ffmpeg-5.0.1
-export InferenceEngine_DIR=$SETUP/intel/openvino_2022/runtime
-export ngraph_DIR=$InferenceEngine_DIR
-export doctest_DIR=$SETUP/doctest-2.4.9
-export OpenVINO_DIR=$ngraph_DIR
-export PVRecogOpenvino_DIR=$SETUP/pv-cpp-sdk-openvino
-export PVAttriOpenvino_DIR=$PVRecogOpenvino_DIR
-export PVRecogTensorrt_DIR=$SETUP/pv-cpp-sdk-tensorrt
-export PVAttriTensorrt_DIR=$PVRecogTensorrt_DIR
-export RdKafka_DIR=$SETUP/librdkafka-1.9.1
-export knowhere_DIR=$SETUP/knowhere-1.3.2
-export ZMQ_ROOT=$SETUP/zeromq-4.3.5
-export CURL_DIR=$SETUP/curl-7.84.0
-export gRPC_DIR=$SETUP/gRPC-1.56.2
-export absl_DIR=$gRPC_DIR
-export cares_DIR=$gRPC_DIR
-export re2_DIR=$gRPC_DIR
-export Protobuf_ROOT=$gRPC_DIR
-export THREAD_POOL_INCLUDE_DIR=$SETUP/thread-pool-3.3.0
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:/opt/oclint/bin
 export XDG_DATA_DIRS=~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Disable TCP flow control
 stty -ixon
@@ -189,16 +163,11 @@ shopt -s direxpand
 
 # From https://gist.github.com/Ragnoroct/c4c3bf37913afb9469d8fc8cffea5b2f
 # Simple PS1 without colors using format arg. Feel free to use PROMPT_COMMAND
-export PS1="$IBla\D{%Y-%m-%d} \t$RCol $BYel\$(__esp_idf_ps1)$RCol $BPur\w$RCol $BBlu\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
+export PS1="$IBla\D{%Y-%m-%d} \t$RCol $BYel\$(__esp_idf_ps1)$RCol $BPur\w$RCol \$(__git_dirty)\$(__fastgit_ps1 '(%s)')$RCol\n$BYel\$$RCol "
 export PS2="$BGre\t$RCol $BBlu\w$RCol$Gre>$Rcol "
 
 grc > /dev/null 2>&1
 export FOUND_GRC=$?
-
-# NEC begin
-export NeoFaceLicenseRepo=~/code/neoface-licenses
-export NecIrisLicenseRepo=~/code/Niris-license
-# NEC end
 
 __esp_idf_ps1()
 {
@@ -215,6 +184,18 @@ k8s_ctx()
     fi
 
     printf "\n\e[6;90m%s\e[m@\e[6;90m%s\n" $(kubens -c) $(kubectx -c)
+}
+
+# Print red if git is dirty, green if clean
+__git_dirty()
+{
+    if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
+        echo -e "\e[0;91m"
+    elif [[ $(git diff --shortstat --cached 2> /dev/null | tail -n1) != "" ]]; then
+        echo -e "\e[0;93m"
+    else
+        echo -e "\e[1;92m"
+    fi
 }
 
 # 100% pure Bash (no forking) function to determine the name of the current git branch
@@ -456,7 +437,7 @@ del_nexus()
     local urls=( "$@" )
     for i in $(seq 0 $#); do
         if [ ! -z ${urls[$i]} ]; then
-            curl -u admin:admin123 -X DELETE ${urls[$i]}
+            curl -u admin:nexus123 -X DELETE ${urls[$i]}
         fi
     done
 }
@@ -473,7 +454,7 @@ upload_nexus ()
     do
         if [ ! -z "${args[$i]}" ]; then
             echo == Uploading "${args[$i]}" ==;
-            curl -u admin:admin123 --upload-file "${args[$i]}" $url;
+            curl -u admin:nexus123 --upload-file "${args[$i]}" $url;
         fi;
     done
 }
