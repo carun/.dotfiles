@@ -67,6 +67,7 @@
 
 [diff]
     tool = vimdiff
+	noprefix = true
 
 [diff "exif"]
     textconv = exiftool
@@ -128,3 +129,5 @@
     date = human
 [gpg "openpgp"]
 	program = gpg
+[format]
+	signOff = true
