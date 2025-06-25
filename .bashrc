@@ -615,6 +615,13 @@ function idf()
         return
     fi
     source ~/.esp/v$version/esp-idf/export.sh
+    export IDF_TOOLS_PATH=~/.espressif
+
+    if [ "$version" = "5.4" ]; then
+        export IDF_COMPILER_PATH="$IDF_TOOLS_PATH/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
+    else
+        export IDF_COMPILER_PATH="$IDF_TOOLS_PATH/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
+    fi
 }
 
 export GPG_TTY=$(tty)
@@ -623,4 +630,5 @@ if [ -n "$WSL_DISTRO_NAME" ]; then
     gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
 fi
 
+export GOPRIVATE=github.com/bot-kitchen
 . "$HOME/.cargo/env"
