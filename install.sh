@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p ~/.config/fish/
+ln  -s $PWD/config.fish ~/.config/fish/config.fish
 ln -sf $PWD/.alias ~/.alias
 ln -sf $PWD/.vimrc ~/.vimrc
 ln -sf $PWD/.toprc ~/.toprc
