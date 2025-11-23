@@ -29,3 +29,7 @@ alias R='sudo apt remove'
 alias power='sudo turbostat --Summary --show power,cpu_use'
 alias UP='sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y'
 alias g=git
+alias kconfig='git --git-dir=$HOME/.config-dotfiles/ --work-tree=$HOME'
+alias dmesg='dmesg -T'
+alias dmsg='dmesg -T'
+alias z='zoxide'

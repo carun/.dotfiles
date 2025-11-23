@@ -153,7 +153,7 @@ fi
 
 export TERM=screen-256color
 export CMAKE_GENERATOR=Ninja
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:/opt/oclint/bin
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$PATH:/opt/oclint/bin:~/.flutter/flutter/bin
 export XDG_DATA_DIRS=~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS
 
 # Disable TCP flow control
@@ -632,3 +632,9 @@ fi
 
 export GOPRIVATE=github.com/bot-kitchen
 . "$HOME/.cargo/env"
+
+eval "$(zoxide init bash)"
+
+export CHROME_EXECUTABLE=/snap/bin/brave
+export ANDROID_HOME=~/.android
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
