@@ -552,7 +552,8 @@ function pps()
         return
     fi
 
-    grc ps o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm -C $1
+    ps -ef | grep -v grep | grep $1
+    #grc --colour=on ps -p $(pgrep -d, $1) -o pid,ppid,user:15,vsz:10,rss:10,pcpu:5,pmem:5,stat,tty,time,lstart,comm
 }
 
 function ke()

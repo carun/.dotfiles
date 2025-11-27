@@ -75,11 +75,8 @@
     prompt = false
 
 [merge]
-    tool = kdiff3
+    tool = meld
     log = true
-
-[mergetool "kdiff3"]
-    cmd = kdiff3 $LOCAL $BASE $REMOTE -o $MERGED
 
 [push]
     autoSetupRemote = true
@@ -117,6 +114,9 @@
 [core]
     editor = vim
     autocrlf = input
+
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
 
 [mergetool "merge3"]
     cmd = vim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"

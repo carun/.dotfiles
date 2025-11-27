@@ -326,23 +326,23 @@ function idf
         return
     end
 
-    set -l version $argv[1]
-    if test ! -d ~/.esp/v$version
-        echo "Unknown ESP IDF version $version"
+    set -l espver $argv[1]
+    if test ! -d ~/.esp/v$espver
+        echo "Unknown ESP IDF version $espver"
         print_esp_idf_versions
         return
     end
 
     # Check if export.fish exists, fallback to export.sh
-    if test -f ~/.esp/v$version/esp-idf/export.fish
-        source ~/.esp/v$version/esp-idf/export.fish
-    else if test -f ~/.esp/v$version/esp-idf/export.sh
-        bass source ~/.esp/v$version/esp-idf/export.sh
+    if test -f ~/.esp/v$espver/esp-idf/export.fish
+        source ~/.esp/v$espver/esp-idf/export.fish
+    else if test -f ~/.esp/v$espver/esp-idf/export.sh
+        bass source ~/.esp/v$espver/esp-idf/export.sh
     end
 
     set -gx IDF_TOOLS_PATH ~/.espressif
 
-    if test "$version" = "5.4"
+    if test "$espver" = "5.4.1"
         set -gx IDF_COMPILER_PATH "$IDF_TOOLS_PATH/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
     else
         set -gx IDF_COMPILER_PATH "$IDF_TOOLS_PATH/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
