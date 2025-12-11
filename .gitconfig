@@ -118,9 +118,6 @@
 [mergetool "meld"]
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
 
-[mergetool "merge3"]
-    cmd = vim -d -c \"wincmd l\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
-
 [status]
     relativePaths = true
 

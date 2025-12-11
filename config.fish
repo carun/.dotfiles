@@ -15,12 +15,15 @@ set -gx GOPRIVATE github.com/bot-kitchen
 set -g fish_greeting
 # GPG TTY setup - set correctly for each session
 set -x GPG_TTY (tty)
+set -Ux CHROME_EXECUTABLE /snap/bin/brave
+set -Ux ANDROID_HOME ~/.android
 
 # PATH setup
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path /usr/local/go/bin
 fish_add_path /opt/oclint/bin
+fish_add_path ~/.flutter/flutter/bin
 
 if test -n "$WSL_DISTRO_NAME"
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
@@ -403,3 +406,5 @@ end
 if test -f ~/.config/fish/local.fish
     source ~/.config/fish/local.fish
 end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH

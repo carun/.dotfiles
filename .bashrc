@@ -639,3 +639,5 @@ eval "$(zoxide init bash)"
 export CHROME_EXECUTABLE=/snap/bin/brave
 export ANDROID_HOME=~/.android
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
