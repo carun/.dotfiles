@@ -85,9 +85,10 @@ alias tmuxn='tmux -2 new -s'
 alias tmuxa='tmux -2 at -t'
 
 # Kubernetes aliases
-alias k='kubectl'
-alias kgp='k get pods'
-alias ktx='kubectx'
+alias k='kubert kubectl'
+alias ktx='kubert ctx'
+alias kgp='k get pods --sort-by=.metadata.creationTimestamp'
+alias kgn='k get nodes --sort-by=.metadata.creationTimestamp'
 
 # Source git alias
 alias sg='sourcegit'
@@ -98,6 +99,14 @@ alias power='sudo turbostat --Summary --show power,cpu_use'
 # User-specific top
 function mtop
     top -u $USER $argv
+end
+
+# Kubernetes function to get pod allocated per node
+function kppn
+    kgp -n psp -l appType=search --no-headers \
+        --sort-by=.metadata.creationTimestamp \
+        -o custom-columns='NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName' \
+        | awk '{nodes[$3]++} END {for (n in nodes) print n, nodes[n]}'
 end
 
 # Kubernetes monitoring functions (converted from while loops)
@@ -134,14 +143,6 @@ function __esp_idf_ps1
     if test -n "$ESP_IDF_VERSION"
         printf "IDF-%s" "$ESP_IDF_VERSION"
     end
-end
-
-# To load k8s ctx
-function k8s_ctx
-    if test "$KUBECONFIG" = ""
-        return
-    end
-    printf "\n\e[6;90m%s\e[m@\e[6;90m%s\n" (kubens -c) (kubectx -c)
 end
 
 function __fastgit_ps1
@@ -299,21 +300,6 @@ function mem_monitor
     end
 end
 
-function ke
-    if test (count $argv) -lt 1
-        echo "Usage: ke <pod-name> [command]"
-        echo "Execute the command in the given k8s pod"
-        return
-    end
-
-    set -l shell $argv[2]
-    if test -z "$shell"
-        set shell bash
-    end
-
-    kubectl exec -it $argv[1] -- $shell
-end
-
 function print_esp_idf_versions
     set -l versions (find ~/.esp -maxdepth 1 -mindepth 1 -type d | xargs -L1 basename | cut -dv -f2)
     echo "  Available ESP IDF versions:"
@@ -387,6 +373,12 @@ function fish_prompt
         end
     end
 
+
+    if test (kubert which ctx 2>/dev/null)
+        printf "%s%s" (set_color -o bryellow) (kubert which ns)
+        printf "%s@%s%s" (set_color -o brblack) (set_color -o bryellow) (kubert which ctx | awk -F_ '{print $4}')
+    end
+
     echo ""
 
     # Prompt symbol based on last command's exit status
@@ -397,14 +389,15 @@ function fish_prompt
     end
 end
 
-# Right prompt for k8s context
-function fish_right_prompt
-    k8s_ctx
-end
-
 # Load additional configuration if it exists
 if test -f ~/.config/fish/local.fish
     source ~/.config/fish/local.fish
 end
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
+set -gx VOLTA_HOME $HOME/.volta
+set -gx BUN_INSTALL $HOME/.bun
+set -gx PATH $VOLTA_HOME/bin $BUN_INSTALL/bin ~/go/bin $PATH
+kubert completion fish | source
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/arun/google-cloud-sdk/path.fish.inc' ]; . '/home/arun/google-cloud-sdk/path.fish.inc'; end

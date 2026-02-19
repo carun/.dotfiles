@@ -15,13 +15,14 @@ alias ....='cd ../../..'
 alias pls='sudo'
 alias mtop="top -u $USER"
 alias tailf="tail -f"
-alias k='kubectl'
+alias k='kubert kubectl'
 alias gdb='gdb -q'
 alias kmem='while :; do clear; k top pods -A | sort -hk4 | tail; sleep 2; done'
 alias kcpu='while :; do clear; k top pods -A | sort -hk3 | tail; sleep 2; done'
 alias dw='k delete deployments,services,rs,pods -l appType=extract; k delete deployments,services,rs,pods -l appType=search; k delete statefulsets,services,rs,pods -l appType=data'
-alias kgp='k get pods'
-alias ktx=kubectx
+alias kgp='k get pods --sort-by=.metadata.creationTimestamp'
+alias kgn='k get nodes --sort-by=.metadata.creationTimestamp'
+alias ktx='kubert ctx'
 alias sg=sourcegit
 alias tree='tree --gitignore'
 alias I='sudo apt install'
