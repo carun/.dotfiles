@@ -13,8 +13,13 @@ set -gx LESS_TERMCAP_ue (printf '\e[0m')
 set -gx LESS_TERMCAP_us (printf '\e[04;36m')
 set -gx GOPRIVATE github.com/bot-kitchen
 set -g fish_greeting
-# GPG TTY setup - set correctly for each session
-set -x GPG_TTY (tty)
+# GPG TTY setup - set correctly for each session.
+# Guarded: in a non-interactive shell `tty` prints "not a tty" and exits
+# non-zero, and without the guard that string lands in GPG_TTY, gets handed
+# to gpg-agent, and pinentry fails to prompt.
+if isatty stdin
+    set -x GPG_TTY (tty)
+end
 set -Ux CHROME_EXECUTABLE /snap/bin/brave
 set -Ux ANDROID_HOME ~/.android
 
@@ -52,15 +57,11 @@ alias ls='ls --color=auto'
 alias ll='ls -lrt --color=auto'
 alias la='ls -A'
 alias l='ls -CF'
-alias grep='grep --color=auto'
+alias grep='grep --color=auto --exclude-dir=.git'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 # Basic command aliases
 alias grc='grc --colour=on'
-alias rm='rm -i'
-alias ls='ls --color'
-alias ll='ls -lrt'
-alias grep='grep --color=auto --exclude-dir=\.git'
 alias yum='sudo yum'
 alias pls='sudo'
 alias tailf='tail -f'
@@ -88,13 +89,20 @@ alias tmuxa='tmux -2 at -t'
 alias k='kubert kubectl'
 alias ktx='kubert ctx'
 alias kgp='k get pods --sort-by=.metadata.creationTimestamp'
+alias ktp='k top pods --sort-by=cpu'
 alias kgn='k get nodes --sort-by=.metadata.creationTimestamp'
+alias ktn='k top nodes --sort-by=cpu'
+alias kns='kubert ns'
 
 # Source git alias
 alias sg='sourcegit'
 
 # Power monitoring
 alias power='sudo turbostat --Summary --show power,cpu_use'
+
+# Enable typing with FCTIX using XWayland on Plasma
+set -gx ELECTRON_OZONE_PLATFORM_HINT x11
+alias xc='code --ozone-platform=x11'
 
 # User-specific top
 function mtop
@@ -205,15 +213,16 @@ function get-bt
     set -l exe $argv[1]
     set -l core $argv[2]
 
+    set -l var
     switch $argv[3]
         case "0"
-            set -l var "bt"
+            set var "bt"
         case "1"
-            set -l var "bt full"
+            set var "bt full"
         case "2"
-            set -l var "thread apply all bt"
+            set var "thread apply all bt"
         case "*"
-            set -l var "thread apply all bt full"
+            set var "thread apply all bt full"
     end
 
     if test -z "$argv[3]"
@@ -326,7 +335,13 @@ function idf
     if test -f ~/.esp/v$espver/esp-idf/export.fish
         source ~/.esp/v$espver/esp-idf/export.fish
     else if test -f ~/.esp/v$espver/esp-idf/export.sh
-        bass source ~/.esp/v$espver/esp-idf/export.sh
+        if type -q bass
+            bass source ~/.esp/v$espver/esp-idf/export.sh
+        else
+            echo "No export.fish for v$espver, and bass is not installed to source export.sh."
+            echo "Install it with: fisher install edc/bass"
+            return 1
+        end
     end
 
     set -gx IDF_TOOLS_PATH ~/.espressif
@@ -349,6 +364,14 @@ function fish_prompt
     set -l esp_info (__esp_idf_ps1)
     if test -n "$esp_info"
         printf "%s%s%s " (set_color -o yellow) $esp_info (set_color normal)
+    end
+
+    # Claude Code profile (from CLAUDE_CONFIG_DIR)
+    if set -q CLAUDE_CONFIG_DIR
+        set -l claude_profile (string replace -r '.*\.claude-' '' (basename $CLAUDE_CONFIG_DIR))
+        if test -n "$claude_profile"
+            printf "%s🤖%s%s " (set_color -o cyan) $claude_profile (set_color normal)
+        end
     end
 
     # Current directory
@@ -376,7 +399,7 @@ function fish_prompt
 
     if test (kubert which ctx 2>/dev/null)
         printf "%s%s" (set_color -o bryellow) (kubert which ns)
-        printf "%s@%s%s" (set_color -o brblack) (set_color -o bryellow) (kubert which ctx | awk -F_ '{print $4}')
+        printf "%s@%s%s" (set_color -o brblack) (set_color -o bryellow) (kubert which ctx)
     end
 
     echo ""
@@ -397,7 +420,20 @@ set -gx VOLTA_HOME $HOME/.volta
 set -gx BUN_INSTALL $HOME/.bun
 set -gx PATH $VOLTA_HOME/bin $BUN_INSTALL/bin ~/go/bin $PATH
 kubert completion fish | source
+tailscale completion fish | source
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/arun/google-cloud-sdk/path.fish.inc' ]; . '/home/arun/google-cloud-sdk/path.fish.inc'; end
+if test -f "$HOME/google-cloud-sdk/path.fish.inc"
+    source "$HOME/google-cloud-sdk/path.fish.inc"
+end
+
+set -gx GTK_IM_MODULE fcitx
+set -gx QT_IM_MODULE fcitx
+set -gx XMODIFIERS @im=fcitx
+set -gx SDL_IM_MODULE fcitx
+set -gx GLFW_IM_MODULE ibus
+
+bind alt-backspace backward-kill-word
+
+set -x COMPOSE_BAKE false

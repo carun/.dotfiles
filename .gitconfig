@@ -1,6 +1,6 @@
 [user]
-    name  = Arun
-	email = visionofarun@gmail.com
+    name  = Arun Chandrasekaran
+	email = carun@protonmail.com
     signingkey = 6E03944C9957360C
 
 [credential]
@@ -41,6 +41,7 @@
     id = rev-parse --short HEAD
     he = rebase -i
     rmbr = "!f(){ git branch -d ${1} && git push origin --delete ${1}; };f"
+    ss = diff --shortstat
 
 [branch]
     autosetuprebase = always
