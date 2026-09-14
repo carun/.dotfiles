@@ -19,6 +19,12 @@ set -g fish_greeting
 # to gpg-agent, and pinentry fails to prompt.
 if isatty stdin
     set -x GPG_TTY (tty)
+    # gpg-agent is socket-activated by systemd at login, often before the
+    # graphical session exports DISPLAY/WAYLAND_DISPLAY, so it inherits no
+    # usable place to show pinentry. The first ssh signing request after a
+    # reboot then fails with "agent refused operation". Point the agent at
+    # this session so it always has somewhere to prompt.
+    gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null 2>&1
 end
 set -Ux CHROME_EXECUTABLE /snap/bin/brave
 set -Ux ANDROID_HOME ~/.android
@@ -32,7 +38,6 @@ fish_add_path ~/.flutter/flutter/bin
 
 if test -n "$WSL_DISTRO_NAME"
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-    gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
 end
 
 # XDG setup

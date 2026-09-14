@@ -627,9 +627,14 @@ function idf()
 
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-if [ -n "$WSL_DISTRO_NAME" ]; then
-    gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
-fi
+# gpg-agent is socket-activated by systemd at login, often before the graphical
+# session exports DISPLAY/WAYLAND_DISPLAY, so it inherits no usable place to
+# show pinentry. The first ssh signing request after a reboot then fails with
+# "agent refused operation". Point the agent at this session so it always has
+# somewhere to prompt.
+case $- in
+    *i*) gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null 2>&1 ;;
+esac
 
 export GOPRIVATE=github.com/bot-kitchen
 . "$HOME/.cargo/env"
