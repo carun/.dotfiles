@@ -1,13 +1,13 @@
 -- Look and feel.
 return {
+  -- Oxocarbon, the theme from nyoom.nvim (IBM Carbon inspired).
   {
-    "folke/tokyonight.nvim",
+    "nyoom-engineering/oxocarbon.nvim",
     lazy = false,
     priority = 1000, -- load before everything else so highlights are right
-    opts = { style = "night" },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd.colorscheme("tokyonight")
+    config = function()
+      vim.o.background = "dark" -- oxocarbon also has a light variant
+      vim.cmd.colorscheme("oxocarbon")
     end,
   },
 
@@ -19,7 +19,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      options = { theme = "tokyonight", globalstatus = true },
+      options = { theme = "auto", globalstatus = true },
       sections = {
         lualine_c = { { "filename", path = 1 } },
       },
