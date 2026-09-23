@@ -15,7 +15,6 @@
   "nvim-tree.lua": { "branch": "master", "commit": "478c69c0fe253caea88de9c5e138bfa77395a59a" },
   "nvim-treesitter": { "branch": "master", "commit": "cf12346a3414fa1b06af75c79faebe7f76df080a" },
   "nvim-web-devicons": { "branch": "master", "commit": "58447c1fca354bbf184425e4a8d01deecbd6f3c4" },
-  "oxocarbon.nvim": { "branch": "main", "commit": "cd6523a0836d6e8ee823d343149fd06c7b71fdde" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "vim-asciidoctor": { "branch": "master", "commit": "d45364d662489e0ffcad0e2bc6f41c859ba58799" },
   "vim-colorschemes": { "branch": "master", "commit": "fd8f122cef604330c96a6a6e434682dbdfb878c9" },
@@ -25,5 +24,6 @@
   "vim-lawrencium": { "branch": "master", "commit": "a790513b278eba1279e1f053aab760cbddbc3872" },
   "vim-log-highlighting": { "branch": "master", "commit": "1037e26f3120e6a6a2c0c33b14a84336dee2a78f" },
   "vim-makeshift": { "branch": "main", "commit": "78ede2fa2dccc8f08b581ef8b4b86d0695ef0f4b" },
+  "vim-moonfly-colors": { "branch": "master", "commit": "2c883835f5b7b380a0a9e80695c420f7efebdfe4" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }

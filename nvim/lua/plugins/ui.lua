@@ -1,13 +1,15 @@
 -- Look and feel.
 return {
-  -- Oxocarbon, the theme from nyoom.nvim (IBM Carbon inspired).
+  -- Moonfly, a dark theme. Note the scheme is named "moonfly" (from
+  -- colors/moonfly.vim), not after the repo. To go back to oxocarbon, swap the
+  -- repo to "nyoom-engineering/oxocarbon.nvim" and the scheme to "oxocarbon".
   {
-    "nyoom-engineering/oxocarbon.nvim",
+    "bluz71/vim-moonfly-colors",
     lazy = false,
     priority = 1000, -- load before everything else so highlights are right
     config = function()
-      vim.o.background = "dark" -- oxocarbon also has a light variant
-      vim.cmd.colorscheme("oxocarbon")
+      vim.o.background = "dark"
+      vim.cmd.colorscheme("moonfly")
     end,
   },
 

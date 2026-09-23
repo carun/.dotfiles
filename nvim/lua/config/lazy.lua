@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = { { import = "plugins" } },
   -- Colorscheme to use while plugins are still being installed on first run.
-  install = { colorscheme = { "oxocarbon", "habamax" } },
+  install = { colorscheme = { "moonfly", "habamax" } },
   -- lazy-lock.json is committed to the dotfiles repo; run :Lazy update to
   -- bump versions and :Lazy restore to go back to the pinned ones.
   checker = { enabled = false },
