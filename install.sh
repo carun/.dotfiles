@@ -12,6 +12,7 @@ link() {
 
 mkdir -p ~/.config/fish/
 link config.fish ~/.config/fish/config.fish
+link nvim       ~/.config/nvim
 link .alias     ~/.alias
 link .vimrc     ~/.vimrc
 link .toprc     ~/.toprc
@@ -39,6 +40,12 @@ clone_or_pull https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 mkdir -p ~/.vim/bundle
 clone_or_pull https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+
+# Neovim: install plugins at the versions pinned in nvim/lazy-lock.json.
+# Language servers and Treesitter parsers install on first interactive start.
+if command -v nvim >/dev/null; then
+    nvim --headless "+Lazy! restore" +qa
+fi
 
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
