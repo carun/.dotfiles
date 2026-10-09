@@ -36,9 +36,11 @@ fish_add_path /usr/local/go/bin
 fish_add_path /opt/oclint/bin
 fish_add_path ~/.flutter/flutter/bin
 
-if test -n "$WSL_DISTRO_NAME"
-    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-end
+# ssh goes through gpg-agent everywhere, as in .bashrc. A desktop shell gets
+# SSH_AUTH_SOCK from the systemd user session, but an SSH login does not: ssh
+# and git there never reached the agent and failed with "Permission denied
+# (publickey)" without ever prompting for the key.
+set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 
 # XDG setup
 if set -q XDG_DATA_DIRS
@@ -442,3 +444,8 @@ set -gx GLFW_IM_MODULE ibus
 bind alt-backspace backward-kill-word
 
 set -x COMPOSE_BAKE false
+
+# herdr-automatic-rename: live tab naming hook
+for _f in $HOME/.config/herdr/plugins/github/herdr-automatic-rename-*/shell/hook.fish
+    test -r "$_f"; and source "$_f"; and break
+end

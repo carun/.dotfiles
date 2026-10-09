@@ -19,6 +19,9 @@ link .toprc     ~/.toprc
 link .bashrc    ~/.bashrc
 link .gitconfig ~/.gitconfig
 
+mkdir -p ~/.config/herdr
+link herdr.toml ~/.config/herdr/config.toml
+
 if awk -F= '/^ID=/{print $2}' /etc/os-release | grep -qiE "rhel|centos"; then
     link .tmux.conf.rhel ~/.tmux.conf
 else
