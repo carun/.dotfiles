@@ -22,6 +22,14 @@ link .gitconfig ~/.gitconfig
 mkdir -p ~/.config/herdr
 link herdr.toml ~/.config/herdr/config.toml
 
+# herdr-app rewrites most of its folder on every start, so link only our files.
+# It writes through these links but watches the folder, not their targets: an
+# edit here applies on its next start, or at once after touch -h on the link.
+mkdir -p ~/.config/herdr-app/themes
+link herdr-app/keys.json           ~/.config/herdr-app/keys.json
+link herdr-app/settings.json       ~/.config/herdr-app/settings.json
+link herdr-app/themes/dracula.json ~/.config/herdr-app/themes/dracula.json
+
 if awk -F= '/^ID=/{print $2}' /etc/os-release | grep -qiE "rhel|centos"; then
     link .tmux.conf.rhel ~/.tmux.conf
 else
